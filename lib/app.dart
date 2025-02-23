@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:toiec_learning_app/route/routes.dart';
+import 'package:toiec_learning_app/routes/routes.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -10,6 +10,7 @@ class MyApp extends StatelessWidget {
       title: 'TOEIC',
       theme: ThemeData(
         fontFamily: 'SFPro',
+        scaffoldBackgroundColor: Colors.white,
       ),
       routerConfig: AppRoutes.getRouter(context),
       debugShowCheckedModeBanner: false,

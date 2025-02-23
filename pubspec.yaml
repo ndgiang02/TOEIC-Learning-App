@@ -42,6 +42,7 @@ dependencies:
   go_router: ^14.8.0
   shared_preferences: ^2.5.2
   flutter_secure_storage: ^9.2.4
+  flutter_svg: ^2.0.17
 
   freezed: ^2.5.8
   json_annotation: ^4.9.0
@@ -71,6 +72,7 @@ flutter:
      - assets/images/
      - assets/gifs/
      - assets/icons/
+     - assets/svg/
 
   fonts:
     - family: SFPro
