@@ -7,6 +7,8 @@ class CustomTextField extends StatelessWidget {
   final String? prefixText;
   final bool isPassword;
   final Icon? prefix;
+  final Function(String)? onChanged;
+
 
   const CustomTextField({
     super.key,
@@ -14,6 +16,7 @@ class CustomTextField extends StatelessWidget {
     this.prefixText,
     this.isPassword = false,
     this.prefix,
+    this.onChanged,
   });
 
   @override
@@ -22,6 +25,8 @@ class CustomTextField extends StatelessWidget {
       child: SizedBox(
         width: Responsive.width(85, context),
         child: TextFormField(
+          onChanged: onChanged,
+          textInputAction: TextInputAction.done,
           obscureText: isPassword, //? visibilityProvider.isObscure : false,
           decoration: InputDecoration(
             prefixIcon: (prefixText != null && prefixText!.isNotEmpty)

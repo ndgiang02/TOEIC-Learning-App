@@ -10,6 +10,7 @@ import 'package:toiec_learning_app/features/home/home_view.dart';
 import '../features/forgotpassword/forgotpassword_view.dart';
 import '../features/listen/listen_view.dart';
 import '../features/login/login_view.dart';
+import '../features/main/main_view.dart';
 import '../features/register/register_view.dart';
 import '../features/setting/setting_view.dart';
 import '../features/splash/splash_view.dart';
@@ -19,7 +20,7 @@ class AppRoutes {
   static GoRouter getRouter(BuildContext context) {
     final splashViewModel = context.watch<SplashViewModel>();
     return GoRouter(
-      initialLocation: '/setting',
+      initialLocation: '/main',
       routes: [
         GoRoute(path: '/', builder: (context, state) => SplashView()),
         GoRoute(path: '/login', builder: (context, state) => LoginScreen()),
@@ -27,6 +28,7 @@ class AppRoutes {
         GoRoute(
             path: '/forgot-password',
             builder: (context, state) => ForgotPasswordView()),
+        GoRoute(path: '/main', builder: (context, state) => MainView()),
         GoRoute(path: '/home', builder: (context, state) => HomeView()),
         GoRoute(path: '/exam', builder: (context, state) => ExamView()),
         GoRoute(
@@ -49,11 +51,11 @@ class AppRoutes {
         .contains(state.matchedLocation);
 
     if (!splashViewModel.isAuthenticated) {
-      return isAuthScreen ? null : '/setting';
+      return isAuthScreen ? null : '/main';
     }
 
     if (isAuthScreen) {
-      return '/setting';
+      return '/main';
     }
 
     /*   if (splashViewModel.isLoading) return null;
@@ -70,6 +72,6 @@ class AppRoutes {
       return '/home';
     }
 */
-    return '/setting';
+    return '/main';
   }
 }

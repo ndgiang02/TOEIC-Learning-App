@@ -7,15 +7,20 @@ import '../../model/user/user_model.dart';
 import 'auth_repository.dart';
 
 class AuthHttpApiRepository implements AuthRepository {
-
-  final BaseApiServices _apiServices = NetworkApiService() ;
+  final BaseApiServices _apiServices = NetworkApiService();
 
   @override
-  Future<UserModel> loginApi(dynamic data )async {
-    dynamic response = await _apiServices.getPostApiResponse(
-        AppUrl.loginEndPint, data);
-    return UserModel.fromJson(response);
+  Future<Map<String, dynamic>> loginApi(dynamic data) async {
+    dynamic response =
+        await _apiServices.getPostApiResponse(AppUrl.loginEndPoint, data);
+    print("Response body: ${response}"); // Debug API response
+    return response;
   }
 
-
+  @override
+  Future<UserModel> registerApi(data) async {
+    dynamic response =
+        await _apiServices.getPostApiResponse(AppUrl.registerApiEndPoint, data);
+    return UserModel.fromJson(response);
+  }
 }

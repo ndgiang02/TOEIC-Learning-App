@@ -9,6 +9,11 @@ import 'package:toiec_learning_app/widgets/textfield.dart';
 import 'login_view_model.dart';
 
 class LoginScreen extends StatelessWidget {
+  final Map<String, String> loginData = {
+    'email': '',
+    'password': '',
+  };
+
   @override
   Widget build(BuildContext context) {
     return Consumer<AuthViewModel>(
@@ -43,6 +48,9 @@ class LoginScreen extends StatelessWidget {
                         Icons.email_rounded,
                         color: Colors.black,
                       ),
+                      onChanged: (value) {
+                        loginData['email'] = value.trim();
+                      },
                     ),
                     const SizedBox(height: 20),
                     CustomTextField(
@@ -51,6 +59,9 @@ class LoginScreen extends StatelessWidget {
                         Icons.lock,
                         color: Colors.black,
                       ),
+                      onChanged: (value) {
+                        loginData['password'] = value.trim();
+                      },
                     ),
                     const SizedBox(height: 10),
                     Container(
@@ -62,14 +73,27 @@ class LoginScreen extends StatelessWidget {
                           style: TextStyle(color: Colors.blue, fontSize: 14),
                         ),
                         onTap: () {
-                         context.push('/forgot-password');
+                          context.push('/forgot-password');
                         },
                       ),
                     ),
                     const SizedBox(height: 15),
                     CustomButton(
                       text: 'Login',
-                      onPressed: () {},
+                      onPressed: () async {
+                        if (loginData['email']!.isEmpty ||
+                            loginData['password']!.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text("Please enter email and password"),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                          return;
+                        }
+                        print(loginData);
+                        await authViewModel.login(loginData, context);
+                      },
                       backgroundColor: Colors.lightBlue,
                       textColor: Colors.white,
                       showBorder: false,
@@ -124,7 +148,6 @@ class LoginScreen extends StatelessWidget {
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
                           context.push('/register');
-
                         },
                     ),
                     const TextSpan(

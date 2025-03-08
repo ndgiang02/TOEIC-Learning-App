@@ -1,42 +1,53 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
-
-import '../../model/user/user_model.dart';
+import 'dart:developer';
 import '../local_storage/local_storage.dart';
+import '../../model/user/user_model.dart';
 
-//singleton class
 class SessionController {
-  LocalStorage sharedPreferenceClass = LocalStorage();
-  static final SessionController _session = SessionController._internel();
+  static final SessionController _instance = SessionController._internal();
+  factory SessionController() => _instance;
 
-  bool? isLogin;
+  LocalStorage sharedPreferenceClass = LocalStorage();
+
+  bool isLogin = false;
   UserModel user = UserModel();
 
-  factory SessionController() {
-    return _session;
-  }
+  SessionController._internal();
 
-  SessionController._internel() {
-    isLogin = false;
-  }
-
-  Future<void> saveUserInPreference(dynamic user) async {
-    sharedPreferenceClass.setValue('token', jsonEncode(user));
-    sharedPreferenceClass.setValue('isLogin', 'true');
+  Future<void> saveUserInPreference(UserModel user, String token) async {
+    try {
+      await sharedPreferenceClass.setValue('token', token);
+      await sharedPreferenceClass.setValue('isLogin', 'true');
+      _instance.user = user;
+      _instance.isLogin = true;
+    } catch (e) {
+      log("Error saving user: $e");
+    }
   }
 
   Future<void> getUserFromPreference() async {
     try {
       var userData = await sharedPreferenceClass.readValue('token');
-      var isLogin = await sharedPreferenceClass.readValue('isLogin');
+      var loginStatus = await sharedPreferenceClass.readValue('isLogin');
 
       if (userData != null && userData.isNotEmpty) {
-        SessionController().user = UserModel.fromJson(jsonDecode(userData));
+        _instance.user = UserModel.fromJson(jsonDecode(userData));
       }
 
-      SessionController().isLogin = (isLogin != null && isLogin == 'true') ? true : false;
+      _instance.isLogin = (loginStatus == 'true');
     } catch (e) {
-      debugPrint("Error in getUserFromPreference: $e");
+      log("Error in getUserFromPreference: $e");
+    }
+  }
+
+  Future<void> clearSession() async {
+    try {
+      await sharedPreferenceClass.clearValue('token');
+      await sharedPreferenceClass.clearValue('isLogin');
+      _instance.user = UserModel();
+      _instance.isLogin = false;
+    } catch (e) {
+      log("Error clearing session: $e");
     }
   }
 }

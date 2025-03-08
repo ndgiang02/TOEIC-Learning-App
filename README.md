@@ -1,7 +1,8 @@
 # TOEIC Learning App
 
 ## Figma Design
-Figma design link: [https://www.figma.com/design/Q0FUPzXNIPzTJZhY4QlS4k/Toiec-App?node-id=0-1&t=yxVwI8TUx1WjaR0D-1]
+
+![Link](https://www.figma.com/design/Q0FUPzXNIPzTJZhY4QlS4k/Toiec-App?node-id=0-1&t=yxVwI8TUx1WjaR0D-1)
 
 ## Technology Stack
 
@@ -13,15 +14,9 @@ Figma design link: [https://www.figma.com/design/Q0FUPzXNIPzTJZhY4QlS4k/Toiec-Ap
 
 ## Installation
 ```sh
-# Clone repository
-git clone https://github.com/your-repo.git
+git clone https://github.com/ndgiang02/TOEIC-Learning-App.git to clone this repository
 
-# Install dependencies
-cd project-folder
-npm install  # or yarn install
-
-# Start development server
-npm start  # or yarn start
+flutter pub get in the project root directory to install all the required dependencies.
 ```
 
 ## Contact
