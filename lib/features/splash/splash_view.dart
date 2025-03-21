@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:toiec_learning_app/core/configs/constant.dart';
 import 'package:toiec_learning_app/features/splash/splash_viewmodel.dart';
+
+import '../../core/configs/constant.dart';
 
 
 class SplashView extends StatefulWidget {
@@ -15,8 +16,7 @@ class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => Provider.of<SplashViewModel>(context, listen: false)
-        .checkLoginStatus());
+   // Future.microtask(() => Provider.of<SplashViewModel>(context, listen: false).checkLoginStatus());
   }
 
   @override

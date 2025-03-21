@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:toiec_learning_app/core/configs/constant.dart';
 import 'package:toiec_learning_app/core/configs/utils/button.dart';
 import 'package:toiec_learning_app/core/configs/utils/textstyle.dart';
-import '../login/login_view_model.dart';
+import '../auth/auth_viewmodel.dart';
 
 class ExamTestlView extends StatelessWidget {
   const ExamTestlView({super.key});
@@ -31,7 +32,9 @@ class ExamTestlView extends StatelessWidget {
                 Image.asset(icExam, width: 400, height: 400,),
                 CustomButton(text: 'START NOW', onTap: () {}, color: Colors.green),
                 const SizedBox(height: 10,),
-                CustomButton(text: 'BACK', onTap: () {}, color: Colors.red)
+                CustomButton(text: 'BACK', onTap: () {
+                  context.pop();
+                }, color: Colors.red)
               ],
             ),
           ),

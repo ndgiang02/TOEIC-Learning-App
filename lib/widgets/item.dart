@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:toiec_learning_app/core/configs/utils/textstyle.dart';
 
 class CustomItem extends StatelessWidget {
   final String assetImage;
@@ -31,9 +30,9 @@ class CustomItem extends StatelessWidget {
           boxShadow: [
             BoxShadow(
               color: Colors.black26,
-              blurRadius: 6,
-              spreadRadius: 2,
-              offset: Offset(0, 5),
+              blurRadius: 5,
+              spreadRadius: 1,
+              offset: Offset(0, 3),
             ),
           ],
         ),
@@ -47,7 +46,7 @@ class CustomItem extends StatelessWidget {
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: CustomTextStyle.item,
+                style: Theme.of(context).textTheme.titleSmall,
               ),
             ),
           ],

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:toiec_learning_app/core/configs/constant.dart';
+import 'package:toiec_learning_app/widgets/icon.dart';
 
 import '../exam/exam_view.dart';
 import '../home/home_view.dart';
@@ -11,6 +13,8 @@ class MainView extends StatelessWidget {
 
   final List<Widget> _pages = [
     HomeView(),
+    ExamView(),
+    ExamView(),
     ExamView(),
     SettingView(),
   ];
@@ -30,14 +34,32 @@ class MainView extends StatelessWidget {
               bottomNavViewModel.setIndex(index);
             },
             items: [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.search), label: "Exam"),
+                icon: CustomIcon(iconPath: icHome, isActive: false,),
+                activeIcon: CustomIcon(iconPath: icHomeAct, isActive: true, ),
+                label: "Home",
+              ),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.person), label: "Setting"),
+                icon: CustomIcon(iconPath: icClock, isActive: false,),
+                activeIcon: CustomIcon(iconPath: icClockAct, isActive: true, ),
+                label: "Exam",
+              ),
+              BottomNavigationBarItem(
+                icon: CustomIcon(iconPath: icSearch, isActive: false,),
+                activeIcon: CustomIcon(iconPath: icSearchAct, isActive: true, ),
+                label: "Search",
+              ),
+              BottomNavigationBarItem(
+                icon: CustomIcon(iconPath: icBookMark, isActive: false,),
+                activeIcon: CustomIcon(iconPath: icBookMarkAct, isActive: true, ),
+                label: "Grammar",
+              ),
+              BottomNavigationBarItem(
+                icon: CustomIcon(iconPath: icSetting, isActive: false,),
+                activeIcon: CustomIcon(iconPath: icSettingAct, isActive: true, ),
+                label: "Setting",
+              ),
             ],
-            selectedItemColor: Colors.blue,
-            unselectedItemColor: Colors.grey,
           ),
         );
       },

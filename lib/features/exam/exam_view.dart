@@ -1,10 +1,14 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:toiec_learning_app/core/configs/constant.dart';
 import 'package:toiec_learning_app/core/configs/reponsive.dart';
 import 'package:toiec_learning_app/core/configs/utils/textstyle.dart';
 import 'package:toiec_learning_app/widgets/item.dart';
-import '../login/login_view_model.dart';
+import '../../widgets/appbar.dart';
+import '../auth/auth_viewmodel.dart';
 
 class ExamView extends StatelessWidget {
   const ExamView({super.key});
@@ -15,25 +19,29 @@ class ExamView extends StatelessWidget {
     return Consumer<AuthViewModel>(
       builder: (context, authViewModel, child) {
         return Scaffold(
-          appBar: AppBar(
-            title: Text('EXAM', style: CustomTextStyle.appbar),
-            backgroundColor: Colors.lightBlue,
-            centerTitle: true,
+          appBar: GradientAppBar(
+            title: 'EXAM',
+            titleStyle: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
           ),
           body: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                        'TOIEC Listening & Reading Full',
+                    const Text(
+                        'TOEIC Listening & Reading Full',
                         style: CustomTextStyle.exam
                     ),
-                    Text(
-                        'See more',
-                        style: CustomTextStyle.mini
+                    TextButton(
+                      onPressed: () {
+                        context.push('/exam-detail');
+                      },
+                      child: const Text(
+                          'See more',
+                          style: CustomTextStyle.mini
+                      ),
                     ),
                   ],
                 ),
@@ -50,7 +58,8 @@ class ExamView extends StatelessWidget {
                   children: [
                     CustomItem(
                       text: 'TEST 1',
-                      onTap: () {},
+                      onTap: () {
+                      },
                       assetImage: icTest,
                       width: itemWidth,
                     ),
@@ -69,7 +78,7 @@ class ExamView extends StatelessWidget {
                     CustomItem(
                       text: 'Write',
                       onTap: () {
-                        print('HELLO');
+                        log('HELLO');
                       },
                       assetImage: icTest,
                       width: itemWidth,

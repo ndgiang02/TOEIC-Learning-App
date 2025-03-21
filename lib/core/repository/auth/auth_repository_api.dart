@@ -13,14 +13,26 @@ class AuthHttpApiRepository implements AuthRepository {
   Future<Map<String, dynamic>> loginApi(dynamic data) async {
     dynamic response =
         await _apiServices.getPostApiResponse(AppUrl.loginEndPoint, data);
-    print("Response body: ${response}"); // Debug API response
+    return response;
+  }
+
+
+  @override
+  Future<Map<String, dynamic>> getUserInfo(dynamic data) async {
+    dynamic response = await _apiServices.getPostApiResponse(AppUrl.getUserEndPoint, data);
     return response;
   }
 
   @override
-  Future<UserModel> registerApi(data) async {
+  Future<Map<String, dynamic>> registerApi(dynamic data) async {
     dynamic response =
-        await _apiServices.getPostApiResponse(AppUrl.registerApiEndPoint, data);
-    return UserModel.fromJson(response);
+        await _apiServices.getPostApiResponse(AppUrl.registerEndPoint, data);
+    return response;
+  }
+
+  @override
+  Future<Map<String, dynamic>> logoutApi(data) async {
+    dynamic response = await _apiServices.getPostApiResponse(AppUrl.logoutEndPoint, data);
+    return response;
   }
 }

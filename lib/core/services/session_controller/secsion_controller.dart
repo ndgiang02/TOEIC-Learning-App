@@ -17,6 +17,7 @@ class SessionController {
   Future<void> saveUserInPreference(UserModel user, String token) async {
     try {
       await sharedPreferenceClass.setValue('token', token);
+      await sharedPreferenceClass.setValue('user', jsonEncode(user.toJson()));
       await sharedPreferenceClass.setValue('isLogin', 'true');
       _instance.user = user;
       _instance.isLogin = true;
@@ -27,14 +28,17 @@ class SessionController {
 
   Future<void> getUserFromPreference() async {
     try {
-      var userData = await sharedPreferenceClass.readValue('token');
+      var userData = await sharedPreferenceClass.readValue('user');
       var loginStatus = await sharedPreferenceClass.readValue('isLogin');
 
       if (userData != null && userData.isNotEmpty) {
         _instance.user = UserModel.fromJson(jsonDecode(userData));
+        log("User loaded: ${_instance.user.fullName}");
+        _instance.isLogin = (loginStatus == 'true');
+      } else {
+        log("No user found in SharedPreferences!");
+        _instance.isLogin = (loginStatus == 'false');
       }
-
-      _instance.isLogin = (loginStatus == 'true');
     } catch (e) {
       log("Error in getUserFromPreference: $e");
     }

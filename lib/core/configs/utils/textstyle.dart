@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomTextStyle {
+
   static const TextStyle appbar = TextStyle(
     fontSize: 22.0,
     fontWeight: FontWeight.bold,
@@ -17,6 +18,12 @@ class CustomTextStyle {
     fontSize: 16.0,
     fontWeight: FontWeight.bold,
     color: Colors.black,
+  );
+
+  static const TextStyle setting = TextStyle(
+    fontSize: 16.0,
+    fontWeight: FontWeight.w200,
+    color: Colors.grey,
   );
 
   static const TextStyle item = TextStyle(

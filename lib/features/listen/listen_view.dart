@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:toiec_learning_app/core/configs/utils/textstyle.dart';
 import '../../widgets/detail.dart';
-import '../login/login_view_model.dart';
+import '../auth/auth_viewmodel.dart';
 
 class ListenView extends StatelessWidget {
   const ListenView({super.key});

@@ -9,8 +9,8 @@ class ExamModel with _$ExamModel {
     String? id,
     required String title,
     required String description,
-    required List<String> questions, // List of question IDs
-    required int duration, // Duration in minutes
+    required List<String> questions,
+    required int duration,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) = _ExamModel;

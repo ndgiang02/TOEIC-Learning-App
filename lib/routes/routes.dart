@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:toiec_learning_app/features/exam/exam_view.dart';
 import 'package:toiec_learning_app/features/exam_detail/exam_detail.dart';
 import 'package:toiec_learning_app/features/exam_test/exam_test.dart';
 import 'package:toiec_learning_app/features/home/home_view.dart';
 
-import '../features/forgotpassword/forgotpassword_view.dart';
+import '../core/services/session_controller/secsion_controller.dart';
+import '../features/auth/view/forgotpassword_view.dart';
+import '../features/auth/view/login_view.dart';
 import '../features/listen/listen_view.dart';
-import '../features/login/login_view.dart';
 import '../features/main/main_view.dart';
-import '../features/register/register_view.dart';
+import '../features/auth/view/register_view.dart';
 import '../features/setting/setting_view.dart';
 import '../features/splash/splash_view.dart';
 import '../features/splash/splash_viewmodel.dart';
@@ -19,12 +20,30 @@ import '../features/splash/splash_viewmodel.dart';
 class AppRoutes {
   static GoRouter getRouter(BuildContext context) {
     final splashViewModel = context.watch<SplashViewModel>();
+    final sessionController = SessionController();
     return GoRouter(
-      initialLocation: '/main',
+      initialLocation: '/',
+      redirect: (context, state) {
+        return _redirect(context, state,sessionController, splashViewModel);
+      },
       routes: [
         GoRoute(path: '/', builder: (context, state) => SplashView()),
-        GoRoute(path: '/login', builder: (context, state) => LoginScreen()),
-        GoRoute(path: '/register', builder: (context, state) => RegisterView()),
+        //GoRoute(path: '/login', builder: (context, state) => LoginView()),
+        GoRoute(
+          path: '/login',
+          pageBuilder: (context, state) => CustomTransitionPage(
+            child: LoginView(),
+            transitionsBuilder: _customTransition,
+          ),
+        ),
+        GoRoute(
+          path: '/register',
+          pageBuilder: (context, state) => CustomTransitionPage(
+            child: RegisterView(),
+            transitionsBuilder: _customTransition,
+          ),
+        ),
+        //GoRoute(path: '/register', builder: (context, state) => RegisterView()),
         GoRoute(
             path: '/forgot-password',
             builder: (context, state) => ForgotPasswordView()),
@@ -39,39 +58,39 @@ class AppRoutes {
         GoRoute(path: '/listen', builder: (context, state) => ListenView()),
         GoRoute(path: '/setting', builder: (context, state) => SettingView()),
       ],
-      redirect: (context, state) {
-        return _redirect(context, state, splashViewModel);
-      },
     );
   }
 
-  static String? _redirect(BuildContext context, GoRouterState state,
-      SplashViewModel splashViewModel) {
-    final bool isAuthScreen = ['/login', '/register', '/forgot-password']
-        .contains(state.matchedLocation);
+  static String? _redirect(BuildContext context, GoRouterState state, SessionController sessionController, SplashViewModel splashViewModel) {
 
-    if (!splashViewModel.isAuthenticated) {
-      return isAuthScreen ? null : '/main';
+    print("🔄 Checking redirect logic...");
+    print("✅ Authenticated: ${sessionController.isLogin}");
+    print("📍 Current route: ${state.matchedLocation}");
+
+    if (splashViewModel.isLoading) {
+      return null;
     }
 
-    if (isAuthScreen) {
-      return '/main';
-    }
-
-    /*   if (splashViewModel.isLoading) return null;
-
-    final bool isLoggingIn = state.matchedLocation == '/login';
-    final bool isSigningUp = state.matchedLocation == '/register';
-
-    if (!splashViewModel.isAuthenticated) {
-      if (isLoggingIn || isSigningUp) return null;
+    if (sessionController.isLogin == false && state.matchedLocation != '/login' && state.matchedLocation != '/register') {
       return '/login';
     }
 
-    if (isLoggingIn || isSigningUp) {
-      return '/home';
+    if (sessionController.isLogin == true && (state.matchedLocation == '/' || state.matchedLocation == '/login')) {
+      return '/main';
     }
-*/
-    return '/main';
+
+    return null;
+  }
+
+  static Widget _customTransition(
+      BuildContext context,
+      Animation<double> animation,
+      Animation<double> secondaryAnimation,
+      Widget child) {
+    return SlideTransition(
+      position: Tween<Offset>(begin: const Offset(0, 0.2), end: Offset.zero)
+          .animate(CurvedAnimation(parent: animation, curve: Curves.easeOut)),
+      child: FadeTransition(opacity: animation, child: child),
+    );
   }
 }

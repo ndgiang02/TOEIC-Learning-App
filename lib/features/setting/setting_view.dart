@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:toiec_learning_app/core/configs/app_url.dart';
 import 'package:toiec_learning_app/core/configs/utils/textstyle.dart';
 import 'package:toiec_learning_app/features/setting/setting_viewmodel.dart';
 import 'package:toiec_learning_app/features/setting/widget/avatar_profile.dart';
 import 'package:toiec_learning_app/features/setting/widget/menu_item.dart';
+
+import '../auth/auth_viewmodel.dart';
 
 class SettingView extends StatelessWidget {
   const SettingView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final authViewModel = Provider.of<AuthViewModel>(context);
     final settingViewModel = Provider.of<SettingViewModel>(context);
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Setting', style: CustomTextStyle.appbar),
-        backgroundColor: Colors.lightBlue,
+      appBar:AppBar(
         centerTitle: true,
+        title: Text('Setting'),
+        titleTextStyle: Theme.of(context).textTheme.bodyMedium,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -27,11 +32,11 @@ class SettingView extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  AvatarProfile(url: ""),
+                  AvatarProfile(url: '${AppUrl.imgUrl}/${authViewModel.user?.avatar}'),
                   const SizedBox(height: 16),
-                  Text('Zianq', style: CustomTextStyle.header),
+                  Text('${authViewModel.user?.fullName}', style: CustomTextStyle.header),
                   const SizedBox(height: 4),
-                  Text('muaha.vang02@gmail.com', style: CustomTextStyle.normal),
+                  Text('${authViewModel.user?.email}', style: CustomTextStyle.normal),
                   const SizedBox(height: 24),
                 ],
               ),
@@ -39,15 +44,15 @@ class SettingView extends StatelessWidget {
             Expanded(
               child: ListView(
                 children: [
-                  CustomListTile(
+                  CustomItem(
                     icon: Icons.edit,
                     title: "Edit Profile",
                   ),
-                  CustomListTile(
+                  CustomItem(
                     icon: Icons.security,
                     title: "Security",
                   ),
-                  CustomListTile(
+                  CustomItem(
                     trailing: Text("English",
                         style: TextStyle(
                             fontSize: 14,
@@ -56,7 +61,7 @@ class SettingView extends StatelessWidget {
                     icon: Icons.language,
                     title: 'Language',
                   ),
-                  CustomListTile(
+                  CustomItem(
                     onTap: () {
                       settingViewModel.toggleSwitch();
                     },
@@ -66,19 +71,22 @@ class SettingView extends StatelessWidget {
                     icon: Icons.dark_mode,
                     title: "Dark Mode",
                   ),
-                  CustomListTile(
+                  CustomItem(
                     icon: Icons.help,
                     title: "Help Center",
                   ),
-                  CustomListTile(
+                  CustomItem(
                     icon: Icons.privacy_tip,
                     title: "Privacy Policy",
                   ),
-                  CustomListTile(
+                  CustomItem(
                     textColor: Colors.red,
                     iconColor: Colors.red,
                     icon: Icons.logout,
                     title: 'Logout',
+                    onTap: () {
+                      settingViewModel.logout(context);
+                    } ,
                   ),
                 ].map((e) => e).toList(),
               ),

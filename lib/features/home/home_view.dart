@@ -4,7 +4,8 @@ import 'package:toiec_learning_app/core/configs/constant.dart';
 import 'package:toiec_learning_app/core/configs/reponsive.dart';
 import 'package:toiec_learning_app/core/configs/utils/textstyle.dart';
 import 'package:toiec_learning_app/widgets/item.dart';
-import '../login/login_view_model.dart';
+import '../../widgets/appbar.dart';
+import '../auth/auth_viewmodel.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -15,10 +16,9 @@ class HomeView extends StatelessWidget {
     return Consumer<AuthViewModel>(
       builder: (context, authViewModel, child) {
         return Scaffold(
-          appBar: AppBar(
-            title: Text('HOME', style: CustomTextStyle.appbar),
-            backgroundColor: Colors.lightBlue,
-            centerTitle: true,
+          appBar: GradientAppBar(
+            title: 'HOME',
+            titleStyle: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
           ),
           body: Padding(
             padding: const EdgeInsets.all(16.0),
