@@ -19,7 +19,7 @@ class SettingView extends StatelessWidget {
     return Scaffold(
       appBar:AppBar(
         centerTitle: true,
-        title: Text('Setting'),
+        title: Text('CÁ NHÂN'),
         titleTextStyle: Theme.of(context).textTheme.bodyMedium,
       ),
       body: Padding(

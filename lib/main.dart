@@ -4,6 +4,7 @@ import 'package:toiec_learning_app/features/setting/setting_viewmodel.dart';
 
 import 'app.dart';
 import 'features/auth/auth_viewmodel.dart';
+import 'features/grammar/grammar_viewmodel.dart';
 import 'features/main/main_viewmodel.dart';
 import 'features/splash/splash_viewmodel.dart';
 
@@ -12,14 +13,14 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => SplashViewModel()..checkLoginStatus()),
+        ChangeNotifierProvider(
+            create: (context) => SplashViewModel()..checkLoginStatus()),
         ChangeNotifierProvider(create: (_) => AuthViewModel()),
         ChangeNotifierProvider(create: (_) => SettingViewModel()),
         ChangeNotifierProvider(create: (_) => MainViewModel()),
-
-
+        ChangeNotifierProvider(create: (_) => GrammarViewModel()),
       ],
-      child: MyApp(),
+      child: SafeArea(child: MyApp()),
     ),
   );
 }

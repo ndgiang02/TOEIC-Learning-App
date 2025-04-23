@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       builder: (context, settingViewModel, child) {
         return MaterialApp.router(
           title: 'TLA',
-          theme: themeData(context, settingViewModel.isDarkMode ),
+          theme: themeData(context, settingViewModel.isDarkMode),
           routerConfig: AppRoutes.getRouter(context),
           debugShowCheckedModeBanner: false,
         );

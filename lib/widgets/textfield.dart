@@ -9,7 +9,6 @@ class CustomTextField extends StatelessWidget {
   final Icon? prefix;
   final Function(String)? onChanged;
 
-
   const CustomTextField({
     super.key,
     required this.hintText,
@@ -23,7 +22,7 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        width: Responsive.width(85, context),
+        width: Responsive.width(90, context),
         child: TextFormField(
           onChanged: onChanged,
           textInputAction: TextInputAction.done,
@@ -59,14 +58,22 @@ class CustomTextField extends StatelessWidget {
               fontSize: Responsive.width(4, context),
             ),
             filled: true,
-            fillColor: Colors.white,
+            fillColor: Colors.white38,
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: Colors.grey.shade300),
+              borderRadius: BorderRadius.circular(16),
+              borderSide: BorderSide(color: Colors.grey.shade300, width: 0.5),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: Colors.blue, width: 2),
+              borderRadius: BorderRadius.circular(16),
+              borderSide: BorderSide(color: Colors.grey.shade400, width: 0.5),
+            ),
+            disabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: BorderSide(color: Colors.grey.shade400, width: 0.5),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: BorderSide(color: Colors.grey.shade400, width: 0.5),
             ),
             contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 5),
           ),

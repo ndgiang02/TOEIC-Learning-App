@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:toiec_learning_app/core/configs/constant.dart';
+import 'package:toiec_learning_app/features/search/search_view.dart';
 import 'package:toiec_learning_app/widgets/icon.dart';
 
 import '../exam/exam_view.dart';
+import '../grammar/grammar_view.dart';
 import '../home/home_view.dart';
 import '../setting/setting_view.dart';
 import 'main_viewmodel.dart';
@@ -14,8 +16,8 @@ class MainView extends StatelessWidget {
   final List<Widget> _pages = [
     HomeView(),
     ExamView(),
-    ExamView(),
-    ExamView(),
+    SearchView(),
+    GrammarView(),
     SettingView(),
   ];
 

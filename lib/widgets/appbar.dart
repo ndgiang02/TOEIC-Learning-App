@@ -9,6 +9,7 @@ class GradientAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Alignment end;
   final bool centerTitle;
 
+
   GradientAppBar({
     super.key,
     required this.title,

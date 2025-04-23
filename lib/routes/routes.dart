@@ -6,10 +6,12 @@ import 'package:toiec_learning_app/features/exam/exam_view.dart';
 import 'package:toiec_learning_app/features/exam_detail/exam_detail.dart';
 import 'package:toiec_learning_app/features/exam_test/exam_test.dart';
 import 'package:toiec_learning_app/features/home/home_view.dart';
+import 'package:toiec_learning_app/features/search/search_view.dart';
 
 import '../core/services/session_controller/secsion_controller.dart';
 import '../features/auth/view/forgotpassword_view.dart';
 import '../features/auth/view/login_view.dart';
+import '../features/grammar/grammar_view.dart';
 import '../features/listen/listen_view.dart';
 import '../features/main/main_view.dart';
 import '../features/auth/view/register_view.dart';
@@ -28,7 +30,6 @@ class AppRoutes {
       },
       routes: [
         GoRoute(path: '/', builder: (context, state) => SplashView()),
-        //GoRoute(path: '/login', builder: (context, state) => LoginView()),
         GoRoute(
           path: '/login',
           pageBuilder: (context, state) => CustomTransitionPage(
@@ -43,20 +44,22 @@ class AppRoutes {
             transitionsBuilder: _customTransition,
           ),
         ),
-        //GoRoute(path: '/register', builder: (context, state) => RegisterView()),
         GoRoute(
             path: '/forgot-password',
             builder: (context, state) => ForgotPasswordView()),
         GoRoute(path: '/main', builder: (context, state) => MainView()),
         GoRoute(path: '/home', builder: (context, state) => HomeView()),
         GoRoute(path: '/exam', builder: (context, state) => ExamView()),
+        GoRoute(path: '/search', builder: (context, state) => SearchView()),
+        GoRoute(path: '/search', builder: (context, state) => GrammarView()),
+        GoRoute(path: '/setting', builder: (context, state) => SettingView()),
+
         GoRoute(
             path: '/exam-detail',
             builder: (context, state) => ExamDetailView()),
         GoRoute(
             path: '/exam-test', builder: (context, state) => ExamTestlView()),
         GoRoute(path: '/listen', builder: (context, state) => ListenView()),
-        GoRoute(path: '/setting', builder: (context, state) => SettingView()),
       ],
     );
   }
@@ -72,7 +75,7 @@ class AppRoutes {
     }
 
     if (sessionController.isLogin == false && state.matchedLocation != '/login' && state.matchedLocation != '/register') {
-      return '/login';
+      return '/main';
     }
 
     if (sessionController.isLogin == true && (state.matchedLocation == '/' || state.matchedLocation == '/login')) {
